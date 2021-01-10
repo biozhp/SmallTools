@@ -12,3 +12,12 @@ cut -d " " -f 5- ${line}".p2.tped" | awk '{print $0" "}' > ${line}".p2.geno" && 
 python ./vcf_geneticd.py -vcf all.impute.385.m8.vcf -rrate 2.6e-9 -chr $line && \
 touch finish
 done
+## xpclr-python
+cd /users/xushb/Softwares/miniconda3/bin
+. ./activate
+cd /users/xushb/Project/XPCLR/
+cat chr_name.txt | while read line
+do
+xpclr --out "./python/"${line}".xpclr.out" --format vcf --input all.impute.385.m8.vcf --samplesA p1.keep.txt --samplesB p2.keep.txt --rrate 2.6e-9 --chr $line --phased --maxsnps 500 --size 10000 && \
+touch python.finish
+done
