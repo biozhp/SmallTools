@@ -17,7 +17,7 @@ done
 cd /users/xushb/Project/XPCLR/
 cat chr1.txt | while read line
 do
-/users/xushb/Project/XPCLR/Softwares/XPCLR/bin/XPCLR -xpclr "./input/"${line}".p1.geno" "./input/"${line}".p2.geno" "./input/"${line}".snp" "./normal/"${line}".out" -w1 0.005 500 10000 chr1A -p1 0.95 && \
+/users/xushb/Project/XPCLR/Softwares/XPCLR/bin/XPCLR -xpclr "./input/"${line}".p1.geno" "./input/"${line}".p2.geno" "./input/"${line}".snp" "./normal/"${line}".out" -w1 0.005 500 10000 $line -p1 0.95 && \
 touch chr1.finish
 done
 
