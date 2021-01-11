@@ -7,3 +7,6 @@ vcftools --vcf ../all.impute.385.m8.vcf --keep ../p2.txt --window-pi 200000 --wi
 
 ## merge pi result
 bedtools merge -i pi.bed > pi.out
+
+## merge Fst pi
+bedtools intersect -a Fst.out -b pi.out -wa -wb | bedtools groupby -i - -g 1-4 -c 8 -o collapse > Fst_pi.out
