@@ -14,17 +14,13 @@ touch finish
 done
 
 ## xpclr
-cd /users/xushb/Project/XPCLR/
 cat chr1.txt | while read line
 do
-/users/xushb/Project/XPCLR/Softwares/XPCLR/bin/XPCLR -xpclr "./input/"${line}".p1.geno" "./input/"${line}".p2.geno" "./input/"${line}".snp" "./normal/"${line}".out" -w1 0.005 500 10000 $line -p1 0.95 && \
+XPCLR -xpclr "./input/"${line}".p1.geno" "./input/"${line}".p2.geno" "./input/"${line}".snp" "./normal/"${line}".out" -w1 0.005 500 10000 $line -p1 0.95 && \
 touch chr1.finish
 done
 
 ## xpclr-python
-cd /users/xushb/Softwares/miniconda3/bin
-. ./activate
-cd /users/xushb/Project/XPCLR/
 cat chr_name.txt | while read line
 do
 xpclr --out "./python/"${line}".xpclr.out" --format vcf --input all.impute.385.m8.vcf --samplesA p1.keep.txt --samplesB p2.keep.txt --rrate 2.6e-9 --chr $line --phased --maxsnps 500 --size 10000 && \
