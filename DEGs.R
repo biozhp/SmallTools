@@ -1,0 +1,15 @@
+library("tximport")
+library("DESeq2")
+setwd("./DEG/")
+samples <- read.table("./sample3.txt", header = T)
+tx2gene <- read.table("./gene_trans_HC_LC.txt",sep="\t",header = T)
+dir <- "./"
+files <- file.path(dir, "kallisto", samples$Sample, "abundance.h5")
+txi.kallisto <- tximport(files, type = "kallisto", tx2gene = tx2gene,countsFromAbundance = c("lengthScaledTPM"))
+library("BiocParallel")
+register(SnowParam(8))
+dds <- DESeqDataSetFromTximport(txi.kallisto, colData = samples, design = ~ Treatment)
+dds <- dds[rowSums(counts(dds)) > 1,]
+dds <- DESeq(dds)
+ck_tre <- results(dds, contrast = c("Treatment","NIL","NILCK"))
+write.table(ck_tre,file="2Y2_CK.txt",sep="\t",quote=F)
