@@ -22,3 +22,7 @@ dir <- "./"
 files <- file.path(dir,"salmon", samples$Sample, "quant.sf")
 txi <- tximport(files, type="salmon", tx2gene=tx2gene,countsFromAbundance = c("lengthScaledTPM"))
 dds <- DESeqDataSetFromTximport(txi, colData = samples, design = ~ Treatment)
+dds <- dds[rowSums(counts(dds)) > 1,]
+dds <- DESeq(dds)
+ck_tre <- results(dds, contrast = c("Treatment","hot14P","14P"))
+write.table(ck_tre,file="14P_new_salmon.txt",sep="\t",quote=F)
