@@ -9,8 +9,11 @@ ggsave(p2,filename = "p.pdf",width = 3.2,height = 4.5)
 ## Density
 ggplot(df,aes(Ed,fill=Type, color=Type)) + geom_density(alpha = 0.6) +  theme_bw()
 
-## 
+## Point
 library("ggplot2")
 df <- read.table("Enr_plot.txt",header = T,sep = "\t")
 df$Term=factor(df$Term,levels = unique(df$Term))
 p <- ggplot(gene,aes(x = group,y = pathway,color = pvalue)) + geom_point(aes(size=Count))+scale_color_gradient(low="blue",high="red")+theme_bw()
+
+## boxplot
+p <- ggplot(df,aes(x=Type,y=FC2,fill=Type))+geom_boxplot() + theme_bw() + scale_fill_manual(values=c("#ef7571","#50a5d6"))
